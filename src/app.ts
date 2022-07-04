@@ -14,6 +14,9 @@ export class App {
         this.config();
         this.mongoSetup();
         this.routes.publisher.routes(this.app);
+        this.routes.book.routes(this.app);
+        this.routes.category.routes(this.app);
+
     }
 
     private config(): void {
@@ -29,9 +32,5 @@ export class App {
         );
     }
 }
-
-export const datasource = {
-    repository: 'mongo',
-};
 
 export default new App().app;
