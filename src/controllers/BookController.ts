@@ -20,7 +20,10 @@ export class BookController implements IBookController {
     sell = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const bookISBN: string = req.params.isbn;
-            res.status(201).json(await this.bookService.sellBook(bookISBN));
+            const book = await this.bookService.sellBook(bookISBN);
+
+            if (!book) res.status(400).json({ msg: 'No book in stock' });
+            res.status(200).json(book);
         } catch (error) {
             res.status(400).send({ error });
         }
