@@ -4,7 +4,7 @@ import IPublisherPersistence from '../../dataSchema/IPublisherPersistence';
 const PublisherSchema = new Schema({
     publisherCode: {
         type: String,
-        index: true,
+        unique: true,
     },
     publisherName: {
         type: String,

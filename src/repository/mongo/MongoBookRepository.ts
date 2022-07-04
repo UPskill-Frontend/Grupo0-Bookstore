@@ -10,8 +10,8 @@ export class MongoBookRepository implements IBookRepository {
     };
 
     sell = async (isbn: string) => {
-        const bookData = await BookSchema.findOne({ isbn: isbn, stock: { $gt: 0 } });
-        if (!bookData) return null;
+        const bookData = await BookSchema.findOne({ isbn: isbn });
+        if (!bookData || bookData.stock === 0) return null;
         const newBook = await BookSchema.findOneAndUpdate(
             { isbn: bookData.isbn },
             { $inc: { stock: -1 } },
