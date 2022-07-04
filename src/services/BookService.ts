@@ -32,4 +32,12 @@ export class BookService implements IBookService {
         const bookPers = await this.bookRepository.create(BookMapper.toDomain(bookDto));
         return BookMapper.toBookDTO(bookPers);
     };
+
+    getBookByPublisher = async (id: string) => {
+        if (!this.publisherService.publisherExists(id)) {
+            throw new Error('Publisher doesnt exist');
+        }
+        const book = await this.bookRepository.getByPublisher(id);
+        return book.map((x) => BookMapper.toBookDTO(x));
+    };
 }

@@ -9,7 +9,7 @@ interface IBookController {
 
     // get: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
-    // getById: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+    getById: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 }
 
 export { IBookController };

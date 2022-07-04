@@ -16,4 +16,12 @@ export class BookController implements IBookController {
             res.status(400).send({ error });
         }
     };
+
+    getById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            res.json(await this.bookService.getBookByPublisher(req.params.id));
+        } catch (error) {
+            res.status(400).send(JSON.stringify(error));
+        }
+    };
 }
