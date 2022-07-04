@@ -1,4 +1,13 @@
+import { PublisherRoute } from './PublisherRoute';
+
 class Routes {
-    constructor() {}
+    private _publisher: PublisherRoute;
+    constructor() {
+        this._publisher = new PublisherRoute();
+    }
+
+    get publisher(): PublisherRoute {
+        return this._publisher;
+    }
 }
 export default Routes;
