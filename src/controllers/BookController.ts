@@ -16,4 +16,15 @@ export class BookController implements IBookController {
             res.status(400).send({ error });
         }
     };
+
+    orderBook = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const isbn: string = req.params.isbn;
+            const bookDTO: IBookDTO = { ...req.body, isbn };
+
+            res.status(200).json(await this.bookService.orderBook(bookDTO));
+        } catch (error) {
+            res.status(400).send({ error });
+        }
+    };
 }
