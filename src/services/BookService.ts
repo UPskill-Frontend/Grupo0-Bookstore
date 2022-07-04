@@ -32,4 +32,10 @@ export class BookService implements IBookService {
         const bookPers = await this.bookRepository.create(BookMapper.toDomain(bookDto));
         return BookMapper.toBookDTO(bookPers);
     };
+
+    sellBook = async (isbn: string) => {
+        const book = await this.bookRepository.sell(isbn);
+        if (!book) return null;
+        return BookMapper.toBookDTO(book);
+    };
 }

@@ -8,4 +8,15 @@ export class MongoBookRepository implements IBookRepository {
         const newBook = await BookSchema.create(t);
         return BookMapper.toDomain(newBook);
     };
+
+    sell = async (isbn: string) => {
+        const bookData = await BookSchema.findOne({ isbn: isbn, stock: { $gt: 0 } });
+        if (!bookData) return null;
+        const newBook = await BookSchema.findOneAndUpdate(
+            { isbn: bookData.isbn },
+            { $inc: { stock: -1 } },
+            { new: true }
+        );
+        return BookMapper.toDomain(newBook!);
+    };
 }
