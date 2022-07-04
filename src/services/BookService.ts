@@ -11,4 +11,8 @@ export class BookService implements IBookService {
         const bookPers = await this.bookRepository.create(BookMapper.toDomain(bookDto));
         return BookMapper.toBookDTO(bookPers);
     };
+
+    getBooksByISBN = async (isbn: string) => {
+        return BookMapper.toBookDTO(await this.bookRepository.findByISBN(isbn));
+    };
 }

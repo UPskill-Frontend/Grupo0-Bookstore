@@ -48,11 +48,11 @@ export class BookController implements IBookController {
     //     }
     // };
 
-    // getById = async (req: Request, res: Response, next: NextFunction) => {
-    //     try {
-    //         res.json(await this.recommendationService.getRecommendationByID(req.params.id));
-    //     } catch (error) {
-    //         res.status(400).send(JSON.stringify(error));
-    //     }
-    // };
+    getBooksByISBN = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            res.json(await this.bookService.getBooksByISBN(req.params.isbn));
+        } catch (error) {
+            res.status(400).send(JSON.stringify(error));
+        }
+    };
 }
