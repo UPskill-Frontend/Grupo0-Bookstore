@@ -7,5 +7,6 @@ export class BookRoute {
 
     routes(app: Router) {
         app.post('/api/book', this.controller.post);
+        app.put('/api/book/:isbn', this.controller.sell);
     }
 }
