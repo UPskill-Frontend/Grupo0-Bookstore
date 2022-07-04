@@ -4,7 +4,8 @@ import { BookMapper } from '../../mappers/BookMapper';
 import { BookSchema } from '../../persistence/schemas/bookSchema';
 export class MongoBookRepository implements IBookRepository {
     create = async (book: Book) => {
-        const newBook = await BookSchema.create(BookMapper.toBookPersistence(book));
+        const t = BookMapper.toBookPersistence(book);
+        const newBook = await BookSchema.create(t);
         return BookMapper.toDomain(newBook);
     };
 }
