@@ -30,7 +30,14 @@ export class BookController implements IBookController {
 
     getBooksByISBN = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            res.json(await this.bookService.getBooksByISBN(req.params.isbn));
+            const book = await this.bookService.getBooksByISBN(req.params.isbn);
+            if (book) {
+                res.json(book);
+            } else {
+                res.status(400).json({
+                    message: 'The book with the provided ISBN is not available or is inexistent.',
+                });
+            }
         } catch (error) {
             res.status(400).send(JSON.stringify(error));
         }
