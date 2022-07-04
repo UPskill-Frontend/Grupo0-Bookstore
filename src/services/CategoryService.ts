@@ -11,4 +11,9 @@ export class CategoryService implements ICategoryService {
         const categoryRepo = await this.categoryRepo.create(CategoryMapper.toDomain(categoryDto));
         return CategoryMapper.toDTO(categoryRepo);
     };
+
+    categoryExists = async (categoryCode: string) => {
+        const category = await this.categoryRepo.findCategoryById(categoryCode);
+        return !!category;
+    };
 }

@@ -8,4 +8,12 @@ export class MongoCategoryRepository implements ICategoryRepository {
         const newCategory = await CategorySchema.create(CategoryMapper.toPersistence(category));
         return CategoryMapper.toDomain(newCategory);
     };
+
+    findCategoryById = async (id: string) => {
+        const category = await CategorySchema.findOne({ categoryCode: id });
+        if (!category) {
+            return null;
+        }
+        return CategoryMapper.toDomain(category);
+    };
 }
