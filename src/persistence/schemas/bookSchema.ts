@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
+import IBookPersistence from '../../dataSchema/IBookPersistence';
 
 const Book = new Schema({
     title: { type: String },
@@ -9,5 +10,5 @@ const Book = new Schema({
     categoryCode: { type: String },
 });
 
-const BookSchema = model('Book', Book);
+const BookSchema = model<Document & IBookPersistence>('Book', Book);
 export { BookSchema };

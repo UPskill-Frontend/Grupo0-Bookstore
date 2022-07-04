@@ -8,4 +8,12 @@ export default class MongoPublisherRepository implements IPublisherRepository {
         const publisherPers = PublisherMapper.toPersistence(publisher);
         return PublisherMapper.toDomain(await publisherModel.create(publisherPers));
     };
+
+    findPublisherById = async (id: string) => {
+        const publisher = await publisherModel.findOne({ publisherCode: id });
+        if (!publisher) {
+            return null;
+        }
+        return PublisherMapper.toDomain(publisher);
+    };
 }

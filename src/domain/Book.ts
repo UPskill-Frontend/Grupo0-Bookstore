@@ -9,7 +9,7 @@ export class Book {
     public categoryCode: string;
 
     constructor(book: IBookDTO) {
-        if (book.title && book.isbn && book.author && book.stock && book.publisherCode && book.categoryCode) {
+        if (book.title && book.isbn && book.author && book.stock !== null && book.publisherCode && book.categoryCode) {
             this.title = book.title;
             this.isbn = book.isbn;
             this.author = book.author;

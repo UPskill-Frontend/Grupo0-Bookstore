@@ -11,4 +11,9 @@ export default class PublisherService implements IPublisherService {
         const publisherDom = PublisherMapper.toDomain(publisherDTO);
         return PublisherMapper.toDTO(await this.publisherRepository.create(publisherDom));
     }
+
+    async publisherExists(publisherCode: string): Promise<boolean> {
+        const publisher = await this.publisherRepository.findPublisherById(publisherCode);
+        return !!publisher;
+    }
 }

@@ -13,40 +13,20 @@ export class BookController implements IBookController {
 
             res.status(201).json(await this.bookService.createBook(bookDto));
         } catch (error) {
-            res.status(400).send(JSON.stringify(error));
+            res.status(400).send({ error });
         }
     };
 
-    // put = async (req: Request, res: Response, next: NextFunction) => {
-    //     try {
-    //         const dto: IRecommendationDTO = {
-    //             ...req.body,
-    //             recommendationDate: new Date(req.body.recommendationDate),
-    //         };
+    orderBook = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const isbn: string = req.params.isbn;
+            const bookDTO: IBookDTO = { ...req.body, isbn };
 
-    //         res.status(201).json(await this.recommendationService.updateRecommendation(req.params.id, dto));
-    //     } catch (error) {
-    //         res.status(400).send(JSON.stringify(error));
-    //     }
-    // };
-
-    // delete = async (req: Request, res: Response, next: NextFunction) => {
-    //     try {
-    //         (await this.recommendationService.deleteRecommendation(req.params.id))
-    //             ? res.send(`Recommendation ${req.params.id} deleted`)
-    //             : res.status(400).send(`${req.params.id} not found`);
-    //     } catch (error) {
-    //         res.status(400).send(JSON.stringify(error));
-    //     }
-    // };
-
-    // get = async (req: Request, res: Response, next: NextFunction) => {
-    //     try {
-    //         res.json(await this.recommendationService.getRecommendations());
-    //     } catch (error) {
-    //         res.status(400).send(JSON.stringify(error));
-    //     }
-    // };
+            res.status(200).json(await this.bookService.orderBook(bookDTO));
+        } catch (error) {
+            res.status(400).send({ error });
+        }
+    };
 
     getBooksByISBN = async (req: Request, res: Response, next: NextFunction) => {
         try {
