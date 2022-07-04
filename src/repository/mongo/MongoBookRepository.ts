@@ -18,7 +18,7 @@ export class MongoBookRepository implements IBookRepository {
     };
 
     updateStock = async (isbn: string, stock: number) => {
-        const book = await BookSchema.findOneAndUpdate({ isbn }, { stock });
+        const book = await BookSchema.findOneAndUpdate({ isbn }, { stock }, { new: true });
         if (!book) {
             throw new Error('Book does not exist');
         }
