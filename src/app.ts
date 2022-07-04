@@ -13,8 +13,10 @@ export class App {
     constructor() {
         this.config();
         this.mongoSetup();
+        this.routes.publisher.routes(this.app);
         this.routes.book.routes(this.app);
         this.routes.category.routes(this.app);
+
     }
 
     private config(): void {
