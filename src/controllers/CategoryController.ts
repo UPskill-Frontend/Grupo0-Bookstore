@@ -1,59 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import { IRecommendationDTO } from '../dtos/ICategory';
-import { IRecommendationService } from '../services/ICategoryService';
-import RecommendationService from '../services/CategoryService';
-import { IRecommendationController } from './ICategoryController';
+import { ICategoryController } from './interfaces/ICategoryController';
+import ICategoryDTO from '../dtos/ICategoryDTO';
+import ICategoryService from '../services/interfaces/ICategoryService';
+import { CategoryService } from '../services/CategoryService';
 
-export class RecommendationController implements IRecommendationController {
-    constructor(private recommendationService: IRecommendationService = new RecommendationService()) {}
+export class CategoryController implements ICategoryController {
+    constructor(private categoryService: ICategoryService = new CategoryService()) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const dto: IRecommendationDTO = {
-                ...req.body,
-                recommendationDate: new Date(req.body.recommendationDate),
-            };
-
-            res.status(201).json(await this.recommendationService.createRecommendation(dto));
-        } catch (error) {
-            res.status(400).send(JSON.stringify(error));
-        }
-    };
-
-    put = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const dto: IRecommendationDTO = {
-                ...req.body,
-                recommendationDate: new Date(req.body.recommendationDate),
-            };
-
-            res.status(201).json(await this.recommendationService.updateRecommendation(req.params.id, dto));
-        } catch (error) {
-            res.status(400).send(JSON.stringify(error));
-        }
-    };
-
-    delete = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            (await this.recommendationService.deleteRecommendation(req.params.id))
-                ? res.send(`Recommendation ${req.params.id} deleted`)
-                : res.status(400).send(`${req.params.id} not found`);
-        } catch (error) {
-            res.status(400).send(JSON.stringify(error));
-        }
-    };
-
-    get = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            res.json(await this.recommendationService.getRecommendations());
-        } catch (error) {
-            res.status(400).send(JSON.stringify(error));
-        }
-    };
-
-    getById = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            res.json(await this.recommendationService.getRecommendationByID(req.params.id));
+            const categoryDto: ICategoryDTO = req.body;
+            res.status(201).json(await this.categoryService.createCategory(categoryDto));
         } catch (error) {
             res.status(400).send(JSON.stringify(error));
         }

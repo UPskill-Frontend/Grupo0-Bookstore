@@ -1,4 +1,4 @@
-export default interface ICategoryPersistence {
+export default interface ICategoryDTO {
     categoryCode: string;
     category: string;
 }
