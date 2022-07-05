@@ -33,6 +33,12 @@ export class BookService implements IBookService {
         return BookMapper.toBookDTO(bookPers);
     };
 
+    getBooksByISBN = async (isbn: string) => {
+        const book = await this.bookRepository.findByISBN(isbn);
+        if (!book) return book;
+        return BookMapper.toBookDTO(book);
+    };
+
     orderBook = async (bookDto: IBookDTO) => {
         const book = await this.bookRepository.findByISBN(bookDto.isbn);
         if (!book) {
