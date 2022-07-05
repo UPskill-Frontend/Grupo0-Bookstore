@@ -4,7 +4,7 @@ import IBookPersistence from '../../dataSchema/IBookPersistence';
 const Book = new Schema({
     title: { type: String },
     isbn: { type: String, unique: true },
-    author: { type: String },
+    authorNIF: { type: String },
     stock: { type: Number },
     publisherCode: { type: String },
     categoryCode: { type: String },

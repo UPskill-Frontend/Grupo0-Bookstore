@@ -1,7 +1,7 @@
 export default interface IBookPersistence {
     title: string;
     isbn: string;
-    author: string;
+    authorNIF: string;
     stock: number;
     publisherCode: string;
     categoryCode: string;
