@@ -51,4 +51,9 @@ export class MongoBookRepository implements IBookRepository {
         const bookList = await BookSchema.deleteMany({ categoryCode });
         return bookList.deletedCount;
     };
+
+    getBooksByAuthor = async (nif: string): Promise<Book[]> => {
+        const bookList = await BookSchema.find({ authorNIF: nif, stock: { $gt: 0 } });
+        return bookList.map((book) => BookMapper.toDomain(book));
+    };
 }

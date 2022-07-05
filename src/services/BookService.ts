@@ -9,6 +9,7 @@ import IPublisherService from './interfaces/IPublisherService';
 import PublisherService from './PublisherService';
 import IAuthorService from './interfaces/IAuthorService';
 import { AuthorService } from './AuthorService';
+import { AuthorMapper } from '../mappers/AuthorMapper';
 
 export class BookService implements IBookService {
     constructor(
@@ -68,5 +69,10 @@ export class BookService implements IBookService {
         const book = await this.bookRepository.sell(isbn);
         if (!book) return null;
         return BookMapper.toBookDTO(book);
+    };
+
+    getBookByAuthor = async (nif: string) => {
+        const bookList = await this.bookRepository.getByPublisher(nif);
+        return bookList.map((book) => BookMapper.toBookDTO(book));
     };
 }
