@@ -9,11 +9,7 @@ export default class PublisherController implements IPublisherController {
     constructor(@inject('IPublisherService') private publisherService: IPublisherService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const publisherDTO: IPublisherDTO = req.body;
-            res.send(await this.publisherService.createPublisher(publisherDTO));
-        } catch (error) {
-            res.status(400).send({ error });
-        }
+        const publisherDTO: IPublisherDTO = req.body;
+        res.status(201).json(await this.publisherService.createPublisher(publisherDTO));
     };
 }
