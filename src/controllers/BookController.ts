@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import IBookDTO from '../dtos/IBookDTO';
 import { IBookController } from './interfaces/IBookController';
 import IBookService from '../services/interfaces/IBookService';
-import { BookService } from '../services/BookService';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
@@ -25,6 +24,23 @@ export class BookController implements IBookController {
             const bookDTO: IBookDTO = { ...req.body, isbn };
 
             res.status(200).json(await this.bookService.orderBook(bookDTO));
+        } catch (error) {
+            res.status(400).send({ error });
+        }
+    };
+
+    getById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            res.json(await this.bookService.getBookByPublisher(req.params.id));
+        } catch (error) {
+            res.status(400).send(JSON.stringify(error));
+        }
+    };
+
+    sell = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const bookISBN: string = req.params.isbn;
+            res.status(201).json(await this.bookService.sellBook(bookISBN));
         } catch (error) {
             res.status(400).send({ error });
         }
