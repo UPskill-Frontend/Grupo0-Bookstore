@@ -16,4 +16,9 @@ export class MongoCategoryRepository implements ICategoryRepository {
         }
         return CategoryMapper.toDomain(category);
     };
+
+    deleteCategory = async (id: string) => {
+        const deletedCategory = await CategorySchema.findByIdAndDelete(id);
+        return !!deletedCategory;
+    };
 }

@@ -16,4 +16,15 @@ export class CategoryController implements ICategoryController {
             res.status(400).send({ error });
         }
     };
+
+    delete = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const categoryCode: string = req.params.categoryCode;
+            (await this.categoryService.deleteCategory(categoryCode))
+                ? res.status(200).send('Category deleted')
+                : res.status(404).send({ error: 'Category cannot be deleted' });
+        } catch (error) {
+            res.status(400).send({ error });
+        }
+    };
 }

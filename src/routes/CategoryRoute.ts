@@ -8,5 +8,6 @@ export class CategoryRoute {
 
     routes(app: Router) {
         app.post('/api/category/', this.controller.post);
+        app.delete('/api/category/:categoryCode', this.controller.delete);
     }
 }

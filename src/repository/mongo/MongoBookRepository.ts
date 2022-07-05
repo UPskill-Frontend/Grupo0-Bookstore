@@ -41,4 +41,14 @@ export class MongoBookRepository implements IBookRepository {
         );
         return BookMapper.toDomain(newBook!);
     };
+
+    getBooksByCategory = async (categoryCode: string): Promise<Book[]> => {
+        const bookList = await BookSchema.find({ categoryCode });
+        return bookList.map((x) => BookMapper.toDomain(x));
+    };
+
+    deleteBooksByCategory = async (categoryCode: string): Promise<number> => {
+        const bookList = await BookSchema.deleteMany({ categoryCode });
+        return bookList.deletedCount;
+    };
 }
