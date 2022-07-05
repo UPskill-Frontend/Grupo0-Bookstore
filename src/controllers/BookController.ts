@@ -40,6 +40,20 @@ export class BookController implements IBookController {
             }
         } catch (error) {
             res.status(400).send(JSON.stringify(error));
+
+    getById = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            res.json(await this.bookService.getBookByPublisher(req.params.id));
+        } catch (error) {
+            res.status(400).send(JSON.stringify(error));
+
+    sell = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const bookISBN: string = req.params.isbn;
+            res.status(201).json(await this.bookService.sellBook(bookISBN));
+        } catch (error) {
+            res.status(400).send({ error });
+
         }
     };
 }
