@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import PublisherController from '../controllers/PublisherController';
-export class PublisherRoute {
-    private controller: PublisherController;
+import { inject, injectable } from 'tsyringe';
+import { IPublisherController } from '../controllers/interfaces/IPublisherController';
 
-    constructor() {
-        this.controller = new PublisherController();
-    }
+@injectable()
+export class PublisherRoute {
+    constructor(@inject('IPublisherController') private controller: IPublisherController) {}
 
     routes(app: Router) {
         app.post('/api/publisher', this.controller.post);

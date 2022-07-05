@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import IBookDTO from '../dtos/IBookDTO';
 import { IBookController } from './interfaces/IBookController';
 import IBookService from '../services/interfaces/IBookService';
-import { BookService } from '../services/BookService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class BookController implements IBookController {
-    constructor(private bookService: IBookService = new BookService()) {}
+    constructor(@inject('IBookService') private bookService: IBookService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -40,12 +41,15 @@ export class BookController implements IBookController {
             }
         } catch (error) {
             res.status(400).send(JSON.stringify(error));
-
+        }
+    };
     getById = async (req: Request, res: Response, next: NextFunction) => {
         try {
             res.json(await this.bookService.getBookByPublisher(req.params.id));
         } catch (error) {
             res.status(400).send(JSON.stringify(error));
+        }
+    };
 
     sell = async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -53,7 +57,6 @@ export class BookController implements IBookController {
             res.status(201).json(await this.bookService.sellBook(bookISBN));
         } catch (error) {
             res.status(400).send({ error });
-
         }
     };
 }

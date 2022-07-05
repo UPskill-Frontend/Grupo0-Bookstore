@@ -19,7 +19,7 @@ export class MongoBookRepository implements IBookRepository {
     };
 
     updateStock = async (isbn: string, stock: number) => {
-        const book = await BookSchema.findOneAndUpdate({ isbn }, { stock });
+        const book = await BookSchema.findOneAndUpdate({ isbn }, { stock }, { new: true });
         if (!book) {
             throw new Error('Book does not exist');
         }
@@ -29,7 +29,8 @@ export class MongoBookRepository implements IBookRepository {
     getByPublisher = async (id: string): Promise<Book[]> => {
         const bookList = await BookSchema.find({ publisherCode: id });
         return bookList.map((x) => BookMapper.toDomain(x));
-}
+    };
+
     sell = async (isbn: string) => {
         const bookData = await BookSchema.findOne({ isbn: isbn, stock: { $gt: 0 } });
         if (!bookData) return null;
@@ -39,6 +40,5 @@ export class MongoBookRepository implements IBookRepository {
             { new: true }
         );
         return BookMapper.toDomain(newBook!);
-
-   }
+    };
 }
