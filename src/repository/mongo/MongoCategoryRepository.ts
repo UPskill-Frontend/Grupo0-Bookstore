@@ -18,7 +18,7 @@ export class MongoCategoryRepository implements ICategoryRepository {
     };
 
     deleteCategory = async (id: string) => {
-        const deletedCategory = await CategorySchema.findByIdAndDelete(id);
+        const deletedCategory = await CategorySchema.findOneAndDelete({ categoryCode: id });
         return !!deletedCategory;
     };
 }
