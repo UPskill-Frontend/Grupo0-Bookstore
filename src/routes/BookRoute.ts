@@ -9,6 +9,7 @@ export class BookRoute {
     routes(app: Router) {
         app.post('/api/book', this.controller.post);
         app.get('/api/book/publisher/:id', this.controller.getByPublisher);
+        app.get('/api/book/author/:nif', this.controller.getByAuthor);
         app.post('/api/book/:isbn/order', this.controller.orderBook);
         app.get('/api/book/:isbn', this.controller.getBooksByISBN);
         app.put('/api/book/:isbn', this.controller.sell);

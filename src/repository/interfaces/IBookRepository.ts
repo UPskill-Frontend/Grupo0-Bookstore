@@ -8,4 +8,5 @@ export default interface IBookRepository {
     sell: (isbn: string) => Promise<Book | null>;
     getBooksByCategory: (categoryCode: string) => Promise<Book[]>;
     deleteBooksByCategory: (categoryCode: string) => Promise<number>;
+    getBooksByAuthor: (nif: string) => Promise<Book[]>;
 }
