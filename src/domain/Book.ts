@@ -3,16 +3,23 @@ import IBookDTO from '../dtos/IBookDTO';
 export class Book {
     public title: string;
     public isbn: string;
-    public author: string;
+    public authorNIF: string;
     public stock: number;
     public publisherCode: string;
     public categoryCode: string;
 
     constructor(book: IBookDTO) {
-        if (book.title && book.isbn && book.author && book.stock !== null && book.publisherCode && book.categoryCode) {
+        if (
+            book.title &&
+            book.isbn &&
+            book.authorNIF &&
+            book.stock !== null &&
+            book.publisherCode &&
+            book.categoryCode
+        ) {
             this.title = book.title;
             this.isbn = book.isbn;
-            this.author = book.author;
+            this.authorNIF = book.authorNIF;
             this.stock = book.stock;
             this.publisherCode = book.publisherCode;
             this.categoryCode = book.categoryCode;

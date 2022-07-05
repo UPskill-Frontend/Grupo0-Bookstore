@@ -7,18 +7,22 @@ import ICategoryService from './interfaces/ICategoryService';
 import { CategoryService } from './CategoryService';
 import IPublisherService from './interfaces/IPublisherService';
 import PublisherService from './PublisherService';
+import IAuthorService from './interfaces/IAuthorService';
+import { AuthorService } from './AuthorService';
 
 export class BookService implements IBookService {
     constructor(
         private bookRepository: IBookRepository = new MongoBookRepository(),
         private categoryService: ICategoryService = new CategoryService(),
-        private publisherService: IPublisherService = new PublisherService()
+        private publisherService: IPublisherService = new PublisherService(),
+        private authorService: IAuthorService = new AuthorService()
     ) {}
 
     createBook = async (bookDto: IBookDTO) => {
-        const [categoryExists, publisherExists] = await Promise.all([
+        const [categoryExists, publisherExists, authorExists] = await Promise.all([
             this.categoryService.categoryExists(bookDto.categoryCode),
             this.publisherService.publisherExists(bookDto.publisherCode),
+            this.authorService.authorExists(bookDto.authorNIF),
         ]);
 
         if (!categoryExists) {
@@ -27,6 +31,10 @@ export class BookService implements IBookService {
 
         if (!publisherExists) {
             throw new Error('Publisher does not exist');
+        }
+
+        if (!authorExists) {
+            throw new Error('Author does not exist');
         }
 
         const bookPers = await this.bookRepository.create(BookMapper.toDomain(bookDto));

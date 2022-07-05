@@ -11,4 +11,9 @@ export class AuthorService implements IAuthorService {
         const authorRepo = await this.authorRepo.create(AuthorMapper.toDomain(authorDto));
         return AuthorMapper.toDTO(authorRepo);
     };
+
+    authorExists = async (nif: string) => {
+        const author = await this.authorRepo.findAuthorById(nif);
+        return !!author;
+    };
 }

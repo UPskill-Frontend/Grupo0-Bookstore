@@ -7,7 +7,7 @@ export class BookMapper {
         return {
             title: book.title,
             isbn: book.isbn,
-            author: book.author,
+            authorNIF: book.authorNIF,
             stock: book.stock,
             publisherCode: book.publisherCode,
             categoryCode: book.categoryCode,
@@ -18,7 +18,7 @@ export class BookMapper {
         return {
             title: book.title,
             isbn: book.isbn,
-            author: book.author,
+            authorNIF: book.authorNIF,
             stock: book.stock,
             publisherCode: book.publisherCode,
             categoryCode: book.categoryCode,
