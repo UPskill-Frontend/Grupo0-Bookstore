@@ -2,10 +2,11 @@ import { IPublisherController } from './interfaces/IPublisherController';
 import { NextFunction, Request, Response } from 'express';
 import IPublisherDTO from '../dtos/IPublisherDTO';
 import IPublisherService from '../services/interfaces/IPublisherService';
-import PublisherService from '../services/PublisherService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export default class PublisherController implements IPublisherController {
-    constructor(private publisherService: IPublisherService = new PublisherService()) {}
+    constructor(@inject('IPublisherService') private publisherService: IPublisherService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         try {

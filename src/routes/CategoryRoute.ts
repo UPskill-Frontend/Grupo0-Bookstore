@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { ICategoryController } from '../controllers/interfaces/ICategoryController';
-import { CategoryController } from '../controllers/CategoryController';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class CategoryRoute {
-    constructor(private controller: ICategoryController = new CategoryController()) {}
+    constructor(@inject('ICategoryController') private controller: ICategoryController) {}
 
     routes(app: Router) {
         app.post('/api/category/', this.controller.post);

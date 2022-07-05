@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import { ICategoryController } from './interfaces/ICategoryController';
 import ICategoryDTO from '../dtos/ICategoryDTO';
 import ICategoryService from '../services/interfaces/ICategoryService';
-import { CategoryService } from '../services/CategoryService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class CategoryController implements ICategoryController {
-    constructor(private categoryService: ICategoryService = new CategoryService()) {}
+    constructor(@inject('ICategoryService') private categoryService: ICategoryService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         try {

@@ -1,9 +1,11 @@
 import { Router } from 'express';
+import { inject, injectable } from 'tsyringe';
 import { BookController } from '../controllers/BookController';
 import { IBookController } from '../controllers/interfaces/IBookController';
 
+@injectable()
 export class BookRoute {
-    constructor(private controller: IBookController = new BookController()) {}
+    constructor(@inject('IBookController') private controller: IBookController) {}
 
     routes(app: Router) {
         app.post('/api/book', this.controller.post);

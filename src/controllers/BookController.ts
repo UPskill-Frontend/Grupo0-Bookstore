@@ -3,9 +3,11 @@ import IBookDTO from '../dtos/IBookDTO';
 import { IBookController } from './interfaces/IBookController';
 import IBookService from '../services/interfaces/IBookService';
 import { BookService } from '../services/BookService';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class BookController implements IBookController {
-    constructor(private bookService: IBookService = new BookService()) {}
+    constructor(@inject('IBookService') private bookService: IBookService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         try {
