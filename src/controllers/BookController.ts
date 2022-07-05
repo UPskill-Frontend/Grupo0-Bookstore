@@ -25,7 +25,11 @@ export class BookController implements IBookController {
 
             res.status(200).json(await this.bookService.orderBook(bookDTO));
         } catch (error) {
-            res.status(400).send({ error });
+            if (error instanceof Error) {
+                res.status(400).send({ error: error.message });
+            } else {
+                res.status(400).send({ error });
+            }
         }
     };
 
