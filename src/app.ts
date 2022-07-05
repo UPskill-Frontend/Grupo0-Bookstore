@@ -1,18 +1,10 @@
-import 'reflect-metadata';
 import express, { Application } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import Routes from './routes/Routes';
 import { container, injectable } from 'tsyringe';
-import { CategoryController } from './controllers/CategoryController';
-import { CategoryService } from './services/CategoryService';
-import { MongoCategoryRepository } from './repository/mongo/MongoCategoryRepository';
-import { BookService } from './services/BookService';
-import { BookController } from './controllers/BookController';
-import PublisherController from './controllers/PublisherController';
-import PublisherService from './services/PublisherService';
-import { AuthorController } from './controllers/AuthorController';
-import { AuthorService } from './services/AuthorService';
+import errorHandler from './middlewares/errorHandler';
+import dependenciesConfig from './config';
 
 @injectable()
 export class App {
@@ -29,6 +21,7 @@ export class App {
         this.routes.book.routes(this.app);
         this.routes.category.routes(this.app);
         this.routes.author.routes(this.app);
+        this.app.use(errorHandler);
     }
 
     private config(): void {
@@ -45,17 +38,7 @@ export class App {
     }
 }
 
-// Move into configs
-
-container.register('ICategoryController', { useClass: CategoryController });
-container.register('ICategoryService', { useClass: CategoryService });
-container.register('ICategoryRepository', { useClass: MongoCategoryRepository });
-container.register('IBookController', { useClass: BookController });
-container.register('IBookService', { useClass: BookService });
-container.register('IPublisherController', { useClass: PublisherController });
-container.register('IPublisherService', { useClass: PublisherService });
-container.register('IAuthorController', { useClass: AuthorController });
-container.register('IAuthorService', { useClass: AuthorService });
+dependenciesConfig();
 
 const app = container.resolve(App);
 

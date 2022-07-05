@@ -9,12 +9,7 @@ export class AuthorController implements IAuthorController {
     constructor(@inject('IAuthorService') private authorService: IAuthorService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const authorDto: IAuthorDTO = req.body;
-
-            res.status(201).json(await this.authorService.createAuthor(authorDto));
-        } catch (error) {
-            res.status(400).send({ error });
-        }
+        const authorDto: IAuthorDTO = req.body;
+        res.status(201).json(await this.authorService.createAuthor(authorDto));
     };
 }

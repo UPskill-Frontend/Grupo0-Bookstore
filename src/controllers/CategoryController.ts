@@ -9,26 +9,15 @@ export class CategoryController implements ICategoryController {
     constructor(@inject('ICategoryService') private categoryService: ICategoryService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const categoryDto: ICategoryDTO = req.body;
-            res.status(201).json(await this.categoryService.createCategory(categoryDto));
-        } catch (error) {
-            res.status(400).send({ error });
-        }
+        const categoryDto: ICategoryDTO = req.body;
+        res.status(201).json(await this.categoryService.createCategory(categoryDto));
     };
 
     delete = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const categoryCode: string = req.params.categoryCode;
-            (await this.categoryService.deleteCategory(categoryCode))
-                ? res.status(200).send('Category deleted')
-                : res.status(400).send({ error: 'Category cannot be deleted' });
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(400).send({ error: error.message });
-            } else {
-                res.status(400).send({ error });
-            }
+        const categoryCode: string = req.params.categoryCode;
+        if (!(await this.categoryService.deleteCategory(categoryCode))) {
+            throw new Error('Category cannot be deleted');
         }
+        res.status(200).send('Category deleted');
     };
 }
