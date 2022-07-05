@@ -43,7 +43,7 @@ export class BookController implements IBookController {
             res.status(400).send(JSON.stringify(error));
         }
     };
-    getById = async (req: Request, res: Response, next: NextFunction) => {
+    getByPublisher = async (req: Request, res: Response, next: NextFunction) => {
         try {
             res.json(await this.bookService.getBookByPublisher(req.params.id));
         } catch (error) {
@@ -54,7 +54,9 @@ export class BookController implements IBookController {
     sell = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const bookISBN: string = req.params.isbn;
-            res.status(201).json(await this.bookService.sellBook(bookISBN));
+            const sellCheck = await this.bookService.sellBook(bookISBN);
+            if (!sellCheck) res.status(400).send({ msg: 'No stock for the book selected' });
+            else res.status(200).json(sellCheck);
         } catch (error) {
             res.status(400).send({ error });
         }

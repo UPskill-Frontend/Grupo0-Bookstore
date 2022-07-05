@@ -13,7 +13,7 @@ export class CategoryController implements ICategoryController {
             const categoryDto: ICategoryDTO = req.body;
             res.status(201).json(await this.categoryService.createCategory(categoryDto));
         } catch (error) {
-            res.status(400).send(JSON.stringify(error));
+            res.status(400).send({ error });
         }
     };
 }

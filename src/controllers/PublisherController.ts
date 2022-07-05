@@ -13,7 +13,7 @@ export default class PublisherController implements IPublisherController {
             const publisherDTO: IPublisherDTO = req.body;
             res.send(await this.publisherService.createPublisher(publisherDTO));
         } catch (error) {
-            res.send(400).send({ error });
+            res.status(400).send({ error });
         }
     };
 }
