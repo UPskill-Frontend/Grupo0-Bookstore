@@ -11,6 +11,8 @@ import { BookService } from './services/BookService';
 import { BookController } from './controllers/BookController';
 import PublisherController from './controllers/PublisherController';
 import PublisherService from './services/PublisherService';
+import { AuthorController } from './controllers/AuthorController';
+import { AuthorService } from './services/AuthorService';
 
 @injectable()
 export class App {
@@ -26,6 +28,7 @@ export class App {
         this.routes.publisher.routes(this.app);
         this.routes.book.routes(this.app);
         this.routes.category.routes(this.app);
+        this.routes.author.routes(this.app);
     }
 
     private config(): void {
@@ -51,6 +54,8 @@ container.register('IBookController', { useClass: BookController });
 container.register('IBookService', { useClass: BookService });
 container.register('IPublisherController', { useClass: PublisherController });
 container.register('IPublisherService', { useClass: PublisherService });
+container.register('IAuthorController', { useClass: AuthorController });
+container.register('IAuthorService', { useClass: AuthorService });
 
 const app = container.resolve(App);
 
