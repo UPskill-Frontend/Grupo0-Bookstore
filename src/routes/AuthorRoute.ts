@@ -10,6 +10,6 @@ export class AuthorRoute {
     constructor(@inject('IAuthorController') private controller: IAuthorController) {}
 
     routes(app: Router) {
-        app.post('/api/author', authMiddleware(Role.ADMIN), asyncHandler(this.controller.post));
+        app.post('/api/author', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));
     }
 }

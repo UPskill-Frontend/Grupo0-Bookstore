@@ -10,7 +10,7 @@ export class CategoryRoute {
     constructor(@inject('ICategoryController') private controller: ICategoryController) {}
 
     routes(app: Router) {
-        app.post('/api/category/', authMiddleware(Role.ADMIN), asyncHandler(this.controller.post));
-        app.delete('/api/category/:categoryCode', authMiddleware(Role.ADMIN), asyncHandler(this.controller.delete));
+        app.post('/api/category/', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));
+        app.delete('/api/category/:categoryCode', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.delete));
     }
 }

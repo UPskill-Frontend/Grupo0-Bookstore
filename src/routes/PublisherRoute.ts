@@ -10,6 +10,6 @@ export class PublisherRoute {
     constructor(@inject('IPublisherController') private controller: IPublisherController) {}
 
     routes(app: Router) {
-        app.post('/api/publisher', authMiddleware(Role.ADMIN), asyncHandler(this.controller.post));
+        app.post('/api/publisher', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));
     }
 }
