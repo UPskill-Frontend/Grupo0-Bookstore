@@ -2,13 +2,15 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { ICategoryController } from '../controllers/interfaces/ICategoryController';
 import { inject, injectable } from 'tsyringe';
+import Role from '../enums/Roles';
+import authMiddleware from '../middlewares/authMiddleware';
 
 @injectable()
 export class CategoryRoute {
     constructor(@inject('ICategoryController') private controller: ICategoryController) {}
 
     routes(app: Router) {
-        app.post('/api/category/', asyncHandler(this.controller.post));
-        app.delete('/api/category/:categoryCode', asyncHandler(this.controller.delete));
+        app.post('/api/category/', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));
+        app.delete('/api/category/:categoryCode', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.delete));
     }
 }
