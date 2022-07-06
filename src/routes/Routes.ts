@@ -3,6 +3,7 @@ import { BookRoute } from './BookRoute';
 import { CategoryRoute } from './CategoryRoute';
 import { injectable } from 'tsyringe';
 import { AuthorRoute } from './AuthorRoute';
+import { UserRoute } from './UserRoute';
 
 @injectable()
 class Routes {
@@ -10,7 +11,8 @@ class Routes {
         private _category: CategoryRoute,
         private _publisher: PublisherRoute,
         private _book: BookRoute,
-        private _author: AuthorRoute
+        private _author: AuthorRoute,
+        private _user: UserRoute
     ) {}
 
     get publisher(): PublisherRoute {
@@ -27,6 +29,10 @@ class Routes {
 
     get author(): AuthorRoute {
         return this._author;
+    }
+
+    get user(): UserRoute {
+        return this._user;
     }
 }
 export default Routes;

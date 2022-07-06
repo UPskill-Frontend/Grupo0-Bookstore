@@ -21,6 +21,7 @@ export class App {
         this.routes.book.routes(this.app);
         this.routes.category.routes(this.app);
         this.routes.author.routes(this.app);
+        this.routes.user.routes(this.app);
         this.app.use(errorHandler);
     }
 
