@@ -12,15 +12,15 @@ export class UserController implements IUserController {
 
     register = async (req: Request, res: Response, next: NextFunction) => {
         const userDto: IUserDTO = { ...req.body, role: Role.CLIENT };
-        const user = await this.userService.createUser(userDto);
+        const token = await this.userService.createUser(userDto);
         // add User jwt token
-        res.status(201).json({ message: 'user created' });
+        res.status(201).json({ token });
     };
 
     login = async (req: Request, res: Response, next: NextFunction) => {
         const userLogin: ILoginDTO = { ...req.body };
-        const user = await this.userService.validateUser(userLogin);
+        const token = await this.userService.validateUser(userLogin);
         // add User jwt token
-        res.status(200).json({ message: 'user logged in' });
+        res.status(200).json({ token });
     };
 }
