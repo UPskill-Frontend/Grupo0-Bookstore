@@ -9,7 +9,7 @@ interface IPayload extends JwtPayload {
 }
 
 export default function authMiddleware(roles: Role[]) {
-    return function authenticateToken(req: Request, res: Response, next: Function) {
+    return function authenticateToken(req: Request, res: Response, next: NextFunction) {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
@@ -17,7 +17,7 @@ export default function authMiddleware(roles: Role[]) {
 
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err, payload) => {
             const p = payload as IPayload;
-            if (err || roles.includes(p.role)) return res.status(403).json({ error: 'Not allowed' });
+            if (err || !roles.includes(p.role)) return res.status(403).json({ error: 'Not allowed' });
 
             next();
         });
