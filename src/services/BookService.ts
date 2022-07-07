@@ -72,7 +72,7 @@ export class BookService implements IBookService {
     };
 
     getBookByAuthor = async (nif: string) => {
-        const bookList = await this.bookRepository.getByPublisher(nif);
+        const bookList = await this.bookRepository.getBooksByAuthor(nif);
         return bookList.map((book) => BookMapper.toBookDTO(book));
     };
 }

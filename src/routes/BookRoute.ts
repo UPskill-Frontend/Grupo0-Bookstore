@@ -13,8 +13,8 @@ export class BookRoute {
         app.post('/api/book', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));
         app.get('/api/book/publisher/:id', asyncHandler(this.controller.getByPublisher));
         app.get('/api/book/author/:nif', asyncHandler(this.controller.getByAuthor));
-        app.post('/api/book/:isbn/order', authMiddleware([Role.CLIENT]), asyncHandler(this.controller.orderBook));
+        app.post('/api/book/:isbn/order', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.orderBook));
         app.get('/api/book/:isbn', asyncHandler(this.controller.getBooksByISBN));
-        app.put('/api/book/:isbn', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.sell));
+        app.put('/api/book/:isbn', authMiddleware([Role.CLIENT]), asyncHandler(this.controller.sell));
     }
 }
