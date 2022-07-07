@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { inject, injectable } from 'tsyringe';
+import { BookController } from '../controllers/BookController';
 import { IBookController } from '../controllers/interfaces/IBookController';
 import Role from '../enums/Roles';
 import authMiddleware from '../middlewares/authMiddleware';
 
 @injectable()
 export class BookRoute {
-    constructor(@inject('IBookController') private controller: IBookController) {}
+    constructor(@inject('BookController') private controller: IBookController) {}
 
     routes(app: Router) {
         app.post('/api/book', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));

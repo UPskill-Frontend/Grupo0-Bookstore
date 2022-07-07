@@ -1,15 +1,15 @@
+import { inject, injectable } from 'tsyringe';
 import ICategoryDTO from '../dtos/ICategoryDTO';
 import { CategoryMapper } from '../mappers/CategoryMapper';
 import IBookRepository from '../repository/interfaces/IBookRepository';
 import ICategoryRepository from '../repository/interfaces/ICategoryRepository';
-import { MongoBookRepository } from '../repository/mongo/MongoBookRepository';
-import { MongoCategoryRepository } from '../repository/mongo/MongoCategoryRepository';
 import ICategoryService from './interfaces/ICategoryService';
 
+@injectable()
 export class CategoryService implements ICategoryService {
     constructor(
-        private categoryRepo: ICategoryRepository = new MongoCategoryRepository(),
-        private bookRepository: IBookRepository = new MongoBookRepository()
+        @inject('CategoryRepository') private categoryRepo: ICategoryRepository,
+        @inject('BookRepository') private bookRepository: IBookRepository
     ) {}
 
     createCategory = async (categoryDto: ICategoryDTO) => {

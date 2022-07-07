@@ -1,11 +1,12 @@
 import IPublisherDTO from '../dtos/IPublisherDTO';
 import PublisherMapper from '../mappers/PublisherMapper';
 import IPublisherService from './interfaces/IPublisherService';
-import MongoPublisherRepository from '../repository/mongo/MongoPublisherRepository';
 import IPublisherRepository from '../repository/interfaces/IPublisherRepository';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export default class PublisherService implements IPublisherService {
-    constructor(private publisherRepository: IPublisherRepository = new MongoPublisherRepository()) {}
+    constructor(@inject('PublisherRepository') private publisherRepository: IPublisherRepository) {}
 
     async createPublisher(publisherDTO: IPublisherDTO): Promise<IPublisherDTO> {
         const publisherDom = PublisherMapper.toDomain(publisherDTO);

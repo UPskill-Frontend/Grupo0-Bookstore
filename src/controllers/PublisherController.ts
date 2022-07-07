@@ -6,7 +6,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export default class PublisherController implements IPublisherController {
-    constructor(@inject('IPublisherService') private publisherService: IPublisherService) {}
+    constructor(@inject('PublisherService') private publisherService: IPublisherService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         const publisherDTO: IPublisherDTO = req.body;
