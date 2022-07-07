@@ -9,7 +9,7 @@ interface IPayload extends JwtPayload {
 }
 
 export default function authMiddleware(roles: Role[]) {
-    return function authenticateToken(req: Request, res: Response, next: Function) {
+    return function authenticateToken(req: Request, res: Response, next: NextFunction) {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
