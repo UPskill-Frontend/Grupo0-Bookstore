@@ -1,12 +1,14 @@
+import { autoInjectable, inject, injectable, registry } from 'tsyringe';
 import { NextFunction, Request, Response } from 'express';
 import { ICategoryController } from './interfaces/ICategoryController';
 import ICategoryDTO from '../dtos/ICategoryDTO';
 import ICategoryService from '../services/interfaces/ICategoryService';
-import { inject, injectable } from 'tsyringe';
+import { MongoCategoryRepository } from '../repository/mongo/MongoCategoryRepository';
+import { CategoryService } from '../services/CategoryService';
 
 @injectable()
 export class CategoryController implements ICategoryController {
-    constructor(@inject('ICategoryService') private categoryService: ICategoryService) {}
+    constructor(@inject('CategoryService') private categoryService: ICategoryService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         const categoryDto: ICategoryDTO = req.body;

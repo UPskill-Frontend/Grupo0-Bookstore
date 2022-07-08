@@ -1,26 +1,26 @@
-import { PublisherRoute } from './PublisherRoute';
-import { BookRoute } from './BookRoute';
 import { CategoryRoute } from './CategoryRoute';
 import { injectable } from 'tsyringe';
+import { PublisherRoute } from './PublisherRoute';
 import { AuthorRoute } from './AuthorRoute';
 import { UserRoute } from './UserRoute';
+import { BookRoute } from './BookRoute';
 
 @injectable()
 class Routes {
     constructor(
         private _category: CategoryRoute,
         private _publisher: PublisherRoute,
-        private _book: BookRoute,
         private _author: AuthorRoute,
-        private _user: UserRoute
+        private _user: UserRoute,
+        private _book: BookRoute
     ) {}
-
-    get publisher(): PublisherRoute {
-        return this._publisher;
-    }
 
     get category(): CategoryRoute {
         return this._category;
+    }
+
+    get publisher(): PublisherRoute {
+        return this._publisher;
     }
 
     get book(): BookRoute {

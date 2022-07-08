@@ -6,7 +6,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class BookController implements IBookController {
-    constructor(@inject('IBookService') private bookService: IBookService) {}
+    constructor(@inject('BookService') private bookService: IBookService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         const bookDto: IBookDTO = req.body;
