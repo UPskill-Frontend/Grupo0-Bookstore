@@ -1,18 +1,19 @@
 import { AuthorController } from './controllers/AuthorController';
 import { BookController } from './controllers/BookController';
 import { CategoryController } from './controllers/CategoryController';
+import { ChartsController } from './controllers/ChartsController';
 import PublisherController from './controllers/PublisherController';
 import { UserController } from './controllers/UserController';
+import HTTPChartsRepository from './repository/HTTP/HTTPChartsRepository';
 import { MongoAuthorRepository } from './repository/mongo/MongoAuthorRepository';
 import { MongoBookRepository } from './repository/mongo/MongoBookRepository';
 import { MongoCategoryRepository } from './repository/mongo/MongoCategoryRepository';
 import MongoPublisherRepository from './repository/mongo/MongoPublisherRepository';
 import MongoUserRepository from './repository/mongo/MongoUserRepository';
-import { AuthorRoute } from './routes/AuthorRoute';
-import { BookRoute } from './routes/BookRoute';
 import { AuthorService } from './services/AuthorService';
 import { BookService } from './services/BookService';
 import { CategoryService } from './services/CategoryService';
+import { chartsService } from './services/ChartsService';
 import PublisherService from './services/PublisherService';
 import UserService from './services/UserService';
 
@@ -37,4 +38,9 @@ export const dependencies = [
     { token: 'UserRepository', useToken: MongoUserRepository },
     { token: 'UserService', useToken: UserService },
     { token: 'UserController', useToken: UserController },
+
+    // charts
+    { token: 'ChartsRepository', useToken: HTTPChartsRepository },
+    { token: 'ChartsService', useToken: chartsService },
+    { token: 'ChartsController', useToken: ChartsController },
 ];

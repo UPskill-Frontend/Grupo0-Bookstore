@@ -3,6 +3,7 @@ import IBookDTO from '../dtos/IBookDTO';
 import { IBookController } from './interfaces/IBookController';
 import IBookService from '../services/interfaces/IBookService';
 import { inject, injectable } from 'tsyringe';
+import axios from 'axios';
 
 @injectable()
 export class BookController implements IBookController {
@@ -43,4 +44,6 @@ export class BookController implements IBookController {
         const bookList = await this.bookService.getBookByAuthor(nif);
         res.status(200).json(bookList);
     };
+
+    getBestSellers = async (req: Request, res: Response, next: NextFunction) => {};
 }

@@ -2,7 +2,6 @@ import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import { inject, injectable } from 'tsyringe';
 import { IUserController } from '../controllers/interfaces/IUserController';
-import { UserController } from '../controllers/UserController';
 
 @injectable()
 export class UserRoute {
