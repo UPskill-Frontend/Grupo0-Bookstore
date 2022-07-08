@@ -1,5 +1,5 @@
 import { CategoryRoute } from './CategoryRoute';
-import { container, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { PublisherRoute } from './PublisherRoute';
 import { AuthorRoute } from './AuthorRoute';
 import { UserRoute } from './UserRoute';
