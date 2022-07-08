@@ -7,11 +7,6 @@ import { BookRoute } from './BookRoute';
 
 @injectable()
 class Routes {
-    // private _category: CategoryRoute = container.resolve(CategoryRoute);
-    // private _publisher: PublisherRoute = container.resolve(PublisherRoute);
-    // private _author: AuthorRoute = container.resolve(AuthorRoute);
-    // private _user: UserRoute = container.resolve(UserRoute);
-    // private _book: BookRoute = container.resolve(BookRoute);
     constructor(
         private _category: CategoryRoute,
         private _publisher: PublisherRoute,
