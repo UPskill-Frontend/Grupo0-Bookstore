@@ -8,7 +8,7 @@ export class ChartsRoute {
     constructor(@inject('ChartsController') private controller: IChartsController) {}
 
     routes(app: Router) {
-        app.get('/api/book/top', asyncHandler(this.controller.getTopTenSales));
-        app.get('/api/book/new', asyncHandler(this.controller.getNewest));
+        app.get('/api/chart/top', asyncHandler(this.controller.getTopTenSales));
+        app.get('/api/chart/new', asyncHandler(this.controller.getNewest));
     }
 }

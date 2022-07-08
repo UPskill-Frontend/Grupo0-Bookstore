@@ -8,7 +8,12 @@ export default class HTTPChartsRepository implements IChartsRepository {
 
     getTopTenSales = async () => {
         const bestSellers: AxiosResponse<IChartsPersistence[]> = await this.httpRequest.get(
-            process.env.CHARTS_URL + 'api/book/top'
+            process.env.CHARTS_URL + 'api/book/top',
+            {
+                headers: {
+                    authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+                },
+            }
         );
 
         return bestSellers.data.map((charts) => ChartsMapper.toDomain(charts));
@@ -16,7 +21,12 @@ export default class HTTPChartsRepository implements IChartsRepository {
 
     getNewest = async () => {
         const newest: AxiosResponse<IChartsPersistence[]> = await this.httpRequest.get(
-            process.env.CHARTS_URL + 'api/book/new'
+            process.env.CHARTS_URL + 'api/book/new',
+            {
+                headers: {
+                    authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+                },
+            }
         );
 
         return newest.data.map((charts) => ChartsMapper.toDomain(charts));
