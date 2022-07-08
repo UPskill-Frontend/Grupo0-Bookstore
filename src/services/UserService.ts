@@ -1,14 +1,15 @@
+import { inject, injectable } from 'tsyringe';
 import ILoginDTO from '../dtos/ILoginDTO';
 import IUserDTO from '../dtos/IUserDTO';
 import JWT from '../helpers/jwt';
 import Passwords from '../helpers/passwords';
 import UserMappers from '../mappers/UserMappers';
 import IUserRepository from '../repository/interfaces/IUserRepository';
-import MongoUserRepository from '../repository/mongo/MongoUserRepository';
 import IUserService from './interfaces/IUserService';
 
+@injectable()
 export default class UserService implements IUserService {
-    constructor(private userRepository: IUserRepository = new MongoUserRepository()) {}
+    constructor(@inject('UserRepository') private userRepository: IUserRepository) {}
 
     async createUser(userDto: IUserDTO): Promise<string> {
         const userDom = UserMappers.toDomain(userDto);

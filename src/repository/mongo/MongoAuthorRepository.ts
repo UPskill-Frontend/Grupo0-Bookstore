@@ -14,6 +14,7 @@ export class MongoAuthorRepository implements IAuthorRepository {
         if (!author) {
             return null;
         }
+
         return AuthorMapper.toDomain(author);
     };
 }

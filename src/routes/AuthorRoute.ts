@@ -7,7 +7,7 @@ import authMiddleware from '../middlewares/authMiddleware';
 
 @injectable()
 export class AuthorRoute {
-    constructor(@inject('IAuthorController') private controller: IAuthorController) {}
+    constructor(@inject('AuthorController') private controller: IAuthorController) {}
 
     routes(app: Router) {
         app.post('/api/author', authMiddleware([Role.ADMIN]), asyncHandler(this.controller.post));

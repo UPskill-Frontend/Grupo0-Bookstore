@@ -2,13 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import IUserDTO from '../dtos/IUserDTO';
 import { IUserController } from './interfaces/IUserController';
 import IUserService from '../services/interfaces/IUserService';
-import { inject, injectable } from 'tsyringe';
 import Role from '../enums/Roles';
 import ILoginDTO from '../dtos/ILoginDTO';
+import UserService from '../services/UserService';
+import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class UserController implements IUserController {
-    constructor(@inject('IUserService') private userService: IUserService) {}
+    constructor(@inject('UserService') private userService: IUserService) {}
 
     register = async (req: Request, res: Response, next: NextFunction) => {
         const userDto: IUserDTO = { ...req.body, role: Role.CLIENT };

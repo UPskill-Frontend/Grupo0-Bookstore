@@ -10,13 +10,15 @@ import PublisherService from './PublisherService';
 import IAuthorService from './interfaces/IAuthorService';
 import { AuthorService } from './AuthorService';
 import { AuthorMapper } from '../mappers/AuthorMapper';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class BookService implements IBookService {
     constructor(
-        private bookRepository: IBookRepository = new MongoBookRepository(),
-        private categoryService: ICategoryService = new CategoryService(),
-        private publisherService: IPublisherService = new PublisherService(),
-        private authorService: IAuthorService = new AuthorService()
+        @inject('BookRepository') private bookRepository: IBookRepository,
+        @inject('CategoryService') private categoryService: ICategoryService,
+        @inject('PublisherService') private publisherService: IPublisherService,
+        @inject('AuthorService') private authorService: IAuthorService
     ) {}
 
     createBook = async (bookDto: IBookDTO) => {
@@ -72,7 +74,7 @@ export class BookService implements IBookService {
     };
 
     getBookByAuthor = async (nif: string) => {
-        const bookList = await this.bookRepository.getByPublisher(nif);
+        const bookList = await this.bookRepository.getBooksByAuthor(nif);
         return bookList.map((book) => BookMapper.toBookDTO(book));
     };
 }

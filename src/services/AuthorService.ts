@@ -1,11 +1,12 @@
+import { inject, injectable } from 'tsyringe';
 import IAuthorDTO from '../dtos/IAuthorDTO';
 import { AuthorMapper } from '../mappers/AuthorMapper';
 import IAuthorRepository from '../repository/interfaces/IAuthorRepository';
-import { MongoAuthorRepository } from '../repository/mongo/MongoAuthorRepository';
 import IAuthorService from './interfaces/IAuthorService';
 
+@injectable()
 export class AuthorService implements IAuthorService {
-    constructor(private authorRepo: IAuthorRepository = new MongoAuthorRepository()) {}
+    constructor(@inject('AuthorRepository') private authorRepo: IAuthorRepository) {}
 
     createAuthor = async (authorDto: IAuthorDTO) => {
         const authorRepo = await this.authorRepo.create(AuthorMapper.toDomain(authorDto));

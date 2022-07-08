@@ -6,7 +6,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class AuthorController implements IAuthorController {
-    constructor(@inject('IAuthorService') private authorService: IAuthorService) {}
+    constructor(@inject('AuthorService') private authorService: IAuthorService) {}
 
     post = async (req: Request, res: Response, next: NextFunction) => {
         const authorDto: IAuthorDTO = req.body;
