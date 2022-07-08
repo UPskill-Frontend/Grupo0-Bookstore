@@ -5,7 +5,7 @@ import { IChartsController } from '../controllers/interfaces/IChartsController';
 
 @injectable()
 export class ChartsRoute {
-    constructor(@inject('IChartsController') private controller: IChartsController) {}
+    constructor(@inject('ChartsController') private controller: IChartsController) {}
 
     routes(app: Router) {
         app.get('/api/book/top', asyncHandler(this.controller.getTopTenSales));
