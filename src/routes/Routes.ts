@@ -4,6 +4,7 @@ import { CategoryRoute } from './CategoryRoute';
 import { injectable } from 'tsyringe';
 import { AuthorRoute } from './AuthorRoute';
 import { UserRoute } from './UserRoute';
+import { ChartsRoute } from './ChartsRoute';
 
 @injectable()
 class Routes {
@@ -12,7 +13,8 @@ class Routes {
         private _publisher: PublisherRoute,
         private _book: BookRoute,
         private _author: AuthorRoute,
-        private _user: UserRoute
+        private _user: UserRoute,
+        private _charts: ChartsRoute
     ) {}
 
     get publisher(): PublisherRoute {
@@ -33,6 +35,10 @@ class Routes {
 
     get user(): UserRoute {
         return this._user;
+    }
+
+    get charts(): ChartsRoute {
+        return this._charts;
     }
 }
 export default Routes;
